@@ -4,25 +4,35 @@ import { Button } from "@/components/ui/button";
 
 const RewardPopup = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [city, setCity] = useState<string>("sua cidade");
+  const [city, setCity] = useState<string>("");
   const whatsappUrl = "https://wa.me/5544991082160";
 
   useEffect(() => {
     // Fetch location
-    fetch("https://ipapi.co/json/")
-      .then(res => res.json())
-      .then(data => {
+    const fetchLocation = async () => {
+      try {
+        const response = await fetch("https://ipapi.co/json/");
+        const data = await response.json();
         if (data.city) {
           setCity(data.city);
+        } else {
+          setCity("sua região");
         }
-      })
-      .catch(() => {
-        setCity("sua cidade");
-      });
+      } catch (error) {
+        console.error("Error fetching location:", error);
+        setCity("sua região");
+      }
+    };
+
+    fetchLocation();
 
     // Show popup after 25 seconds
     const timer = setTimeout(() => {
       setIsOpen(true);
+      // Play confetti sound
+      const audio = new Audio("data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBTGH0fPTgjMGHWW56+OdTBELTaHi8K9cGgU7k9r0yXkqBSh+zPLaizsIGGS56eKaTRAMUKXh8bllHAU2jdXzzn0vBSqAzfDWhzYHHGO45+SaTBEKTKHh8K9cGgU7k9r0yXkqBSh+zPLaizsIGGS56eKaTRAMUKXh8bllHAU2jdXzzn0vBSqAzfDWhzYHHGO45+SaTBEKTKHh8K9cGgU7k9r0yXkqBSh+zPLaizsIGGS56eKaTRAMUKXh8bllHAU2jdXzzn0vBSqAzfDWhzYHHGO45+SaTBEKTKHh8K9cGgU7k9r0yXkqBSh+zPLaizsIGGS56eKaTRAMUKXh8bllHAU2jdXzzn0vBSqAzfDWhzYHHGO45+SaTBEKTKHh8K9cGgU7k9r0yXkqBSh+zPLaizsIGGS56eKaTRAMUKXh8bllHAU2jdXzzn0vBSqAzfDWhzYHHGO45+SaTBEKTKHh8K9cGgU7k9r0yXkqBSh+zPLaizsIGGS56eKaTRAMUKXh8bllHAU2jdXzzn0vBSqAzfDWhzYHHGO45+SaTBEKTKHh8K9cGgU7k9r0yXkqBSh+zPLaizsIGGS56eKaTRAMUKXh8bllHAU2jdXzzn0vBSqAzfDWhzYHHGO45+SaTBEKTKHh8K9cGgU7k9r0yXkqBSh+zPLaizsIGGS56eKaTRAMUKXh8bllHAU2jdXzzn0vBSqAzfDWhzYHHGO45+SaTBEKTKHh8K9cGgU7k9r0yXkqBSh+zPLaizsIGGS56eKaTRAMUKXh8bllHAU2jdXzzn0vBSqAzfDWhzYHHGO45+SaTBEKTKHh8K9cGgU7k9r0yXkqBSh+zPLaizsIGGS56eKaTRAMUKXh8bllHAU2jdXzzn0vBSqAzfDWhzYHHGO45+SaTBEK");
+      audio.volume = 0.3;
+      audio.play().catch(err => console.log("Audio play failed:", err));
     }, 25000);
 
     return () => clearTimeout(timer);
@@ -57,8 +67,8 @@ const RewardPopup = () => {
 
         {/* Content */}
         <div className="text-center mt-8">
-          <h2 className="font-display text-3xl md:text-4xl font-bold mb-4 animate-glow-pulse">
-            🎉 Parabéns, morador(a) de {city}!
+          <h2 className="font-bold text-3xl md:text-4xl mb-4 animate-glow-pulse" style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+            🎉 Parabéns{city ? `, morador(a) de ${city}` : ""}!
           </h2>
           
           <div className="bg-primary/10 border border-primary/30 rounded-lg p-6 mb-6">
@@ -77,9 +87,11 @@ const RewardPopup = () => {
               e GANHE 15 dias do Eliteflix Premium grátis!
             </p>
             
-            <p className="text-sm text-muted-foreground">
-              🎁 Essa oferta é exclusiva para você de <span className="font-bold text-foreground">{city}</span>!
-            </p>
+            {city && (
+              <p className="text-sm text-muted-foreground">
+                🎁 Essa oferta é exclusiva para você de <span className="font-bold text-foreground">{city}</span>!
+              </p>
+            )}
           </div>
 
           <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="inline-block w-full">
