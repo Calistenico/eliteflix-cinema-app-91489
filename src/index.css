@@ -1,0 +1,96 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Eliteflix Cinema Theme - Dark with Red Accents */
+    --background: 0 0% 0%;
+    --foreground: 0 0% 98%;
+
+    --card: 0 0% 7%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 0 0% 5%;
+    --popover-foreground: 0 0% 98%;
+
+    /* Netflix Red as Primary */
+    --primary: 356 100% 45%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 0 0% 20%;
+    --muted-foreground: 0 0% 60%;
+
+    --accent: 356 100% 45%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 356 100% 45%;
+
+    --radius: 0.75rem;
+
+    /* Custom Cinema Tokens */
+    --cinema-red: 356 100% 45%;
+    --cinema-red-dark: 356 100% 35%;
+    --cinema-red-glow: 356 100% 45%;
+    --cinema-gradient: linear-gradient(135deg, hsl(356 100% 45%) 0%, hsl(356 100% 35%) 100%);
+    --cinema-glow: 0 0 30px hsl(356 100% 45% / 0.5);
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+  }
+}
+
+@layer utilities {
+  .text-glow {
+    text-shadow: 0 0 20px hsl(var(--cinema-red-glow) / 0.5);
+  }
+
+  .box-glow {
+    box-shadow: 0 0 30px hsl(var(--cinema-red-glow) / 0.3);
+  }
+
+  .box-glow-strong {
+    box-shadow: 0 0 40px hsl(var(--cinema-red-glow) / 0.6);
+  }
+
+  .gradient-cinema {
+    background: var(--cinema-gradient);
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 0 0 20px hsl(var(--cinema-red-glow) / 0.4);
+    }
+    50% {
+      box-shadow: 0 0 40px hsl(var(--cinema-red-glow) / 0.8);
+    }
+  }
+}
