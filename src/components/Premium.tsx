@@ -10,7 +10,8 @@ const features = [
 ];
 
 const Premium = () => {
-  const whatsappUrl = "https://wa.me/5544991082160?text=Quero%20conhecer%20o%20Eliteflix%20Premium";
+  const purchaseUrl = "https://pay.wiapy.com/XqwRugO8ia";
+  const downloadUrl = "https://webplay.eliteflix.shop/EliteFlixFilmes_Celular.apk";
 
   return (
     <section className="py-20 px-4 relative overflow-hidden">
@@ -54,18 +55,29 @@ const Premium = () => {
                 <p className="text-muted-foreground">por mês</p>
               </div>
 
-              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
-                <Button 
-                  size="lg"
-                  className="w-full text-lg px-8 py-6 bg-primary hover:bg-primary/90 text-primary-foreground font-bold uppercase tracking-wide box-glow transition-all duration-300 hover:scale-105"
-                >
-                  <Crown className="mr-2 h-5 w-5" />
-                  Conhecer o Premium
-                </Button>
-              </a>
+              <div className="space-y-3">
+                <a href={downloadUrl} target="_blank" rel="noopener noreferrer">
+                  <Button 
+                    size="lg"
+                    className="w-full text-lg px-8 py-6 bg-secondary hover:bg-secondary/80 text-secondary-foreground font-bold uppercase tracking-wide transition-all duration-300 hover:scale-105"
+                  >
+                    📱 Baixar App Premium
+                  </Button>
+                </a>
+
+                <a href={purchaseUrl} target="_blank" rel="noopener noreferrer">
+                  <Button 
+                    size="lg"
+                    className="w-full text-lg px-8 py-6 bg-primary hover:bg-primary/90 text-primary-foreground font-bold uppercase tracking-wide box-glow transition-all duration-300 hover:scale-105"
+                  >
+                    <Crown className="mr-2 h-5 w-5" />
+                    Comprar o Premium
+                  </Button>
+                </a>
+              </div>
 
               <p className="text-sm text-muted-foreground mt-4">
-                💬 Fale conosco no WhatsApp para mais informações
+                🎯 Baixe o app e garanta sua assinatura premium!
               </p>
             </div>
           </div>
